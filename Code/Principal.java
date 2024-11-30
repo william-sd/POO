@@ -2,10 +2,6 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Principal {
-    private static final String URL = "jdbc:mysql://localhost:3306/poo"; 
-    private static final String USER = "root"; 
-    private static final String PASSWORD = ""; // Atualize a senha
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcao;
@@ -52,7 +48,7 @@ public class Principal {
 
         String sql = "INSERT INTO usuario (nome, email) VALUES (?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection conn = Conector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, nome);
             stmt.setString(2, email);
@@ -66,7 +62,7 @@ public class Principal {
     private static void listarUsuarios() {
         String sql = "SELECT * FROM usuario";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection conn = Conector.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             System.out.println("\n--- Lista de Usuários ---");
@@ -92,7 +88,7 @@ public class Principal {
 
         String sql = "UPDATE usuario SET nome = ?, email = ? WHERE id = ?";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection conn = Conector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, nome);
             stmt.setString(2, email);
@@ -114,7 +110,7 @@ public class Principal {
 
         String sql = "DELETE FROM usuario WHERE id = ?";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection conn = Conector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             int rowsAffected = stmt.executeUpdate();
