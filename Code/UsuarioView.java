@@ -3,10 +3,10 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UsuarioView implements  CRUD {
-    public UsuarioModel usuario;
+    public UsuarioModel usuario = new UsuarioModel();
 
     @Override
-    public void cadastrar(Scanner scanner, UsuarioModel usuario) {
+    public void cadastrar(Scanner scanner) {
         System.out.print("Nome: ");
         usuario.setNome(scanner.nextLine());
         System.out.print("Email: ");
@@ -14,7 +14,7 @@ public class UsuarioView implements  CRUD {
     }
 
     @Override
-    public void editar(Scanner scanner, UsuarioModel usuario) {
+    public void editar(Scanner scanner) {
         System.out.print("ID do usuário a ser editado: ");
         usuario.setId(scanner.nextInt());
         scanner.nextLine(); // Consumir a quebra de linha
@@ -36,7 +36,7 @@ public class UsuarioView implements  CRUD {
     }
 
     @Override
-    public void remover(Scanner scanner, UsuarioModel usuario) {
+    public void remover(Scanner scanner) {
         System.out.print("ID do usuário a ser removido: ");
         usuario.setId(scanner.nextInt());
     }

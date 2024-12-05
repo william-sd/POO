@@ -7,17 +7,16 @@ import java.util.Scanner;
 
 public class UsuarioController {
     private UsuarioView view = new UsuarioView();
-    private UsuarioModel model = new UsuarioModel();
 
     public void cadastrar(Scanner scanner) {
-        view.cadastrar(scanner, model);
+        view.cadastrar(scanner);
 
         String sql = "INSERT INTO usuario (nome, email) VALUES (?, ?)";
 
         try (Connection conn = Conector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, model.getNome());
-            stmt.setString(2, model.getEmail());
+            stmt.setString(1, view.usuario.getNome());
+            stmt.setString(2, view.usuario.getEmail());
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao adicionar usuário: " + e.getMessage());
@@ -37,15 +36,15 @@ public class UsuarioController {
     }
 
     public void editar(Scanner scanner){
-        view.editar(scanner, model);
+        view.editar(scanner);
 
         String sql = "UPDATE usuario SET nome = ?, email = ? WHERE id = ?";
 
         try (Connection conn = Conector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, model.getNome());
-            stmt.setString(2, model.getEmail());
-            stmt.setInt(3, model.getId());
+            stmt.setString(1, view.usuario.getNome());
+            stmt.setString(2, view.usuario.getEmail());
+            stmt.setInt(3, view.usuario.getId());
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Usuário atualizado com sucesso!");
@@ -58,13 +57,13 @@ public class UsuarioController {
     }
 
     public void remover(Scanner scanner){
-        view.remover(scanner, model);
+        view.remover(scanner);
 
         String sql = "DELETE FROM usuario WHERE id = ?";
 
         try (Connection conn = Conector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, model.getId());
+            stmt.setInt(1, view.usuario.getId());
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Usuário removido com sucesso!");
