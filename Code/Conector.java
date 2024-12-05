@@ -7,7 +7,7 @@ public class Conector {
 
     public static Connection getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/poo", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/poo", "root", "123");
         }
         return connection;
     }
